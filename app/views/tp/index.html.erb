@@ -1,0 +1,55 @@
+<div id ='section'><h1>TeamPlatform API</h1></div>
+<br />
+<div id='section'><h2>Profile</h2>
+<p><img src = "<%= @profile['picture'] %>" height ="150" width = "150"></p>
+<p>Name: <%= @profile['name']%></p>
+<p>ID: <%= @profile['id']%></p>
+<p>Email: <%= @profile['email']%></p>
+<p>Team Name: <%= @profile['team_name']%></p> 
+<p>Team ID: <%= @profile['team_id']%></p>
+<p>Current Access Token: <%=@atoken %></p>
+</div>
+<br />
+
+<% wcount = 0 
+	@workspaces.each do |w| 
+		if w['deleted_at'] == nil then 
+			wcount = wcount +1 
+		end
+	end%>
+	
+<div id='section'><h2>Workspaces: <%= wcount %></h2>
+<% @workspaces.each do |w|
+if w['is_template'] == false and w['deleted_at'] == nil then %>
+	<li><%= w['title']%> - <%= w['description']%> | <%= link_to "Edit", 
+	edit_workspace_path(:title => w['title'], :description => w['description'], :id => w['id']) %> | 
+	<%= link_to "Delete", delete_workspace_path(:id => w['id']), 
+	:data => {:confirm => 'Delete this workspace?'} %></li>
+<% elsif w['is_template'] == true and w['deleted_at'] == nil then  %>
+	<li><%= w['title']%> (template) | <%= link_to "Edit", 
+	edit_workspace_path(:title => w['title'], :description => w['description'], :id => w['id']) %> | 
+	<%= link_to "Delete", delete_workspace_path(:id => w['id']), 
+	:data => {:confirm => 'Delete this workspace?'} %></li>
+<% end %>
+<% end %>
+
+<p></p>
+<%= render 'createworkspace' %>
+
+<h2>Workspaces in trash</h2>
+<% @workspaces.each do |w| 
+if not w['deleted_at'] == nil then %>
+<li><%= w['title']%> (trash) | <%= link_to "Purge", delete_workspace_path(:id => w['id'], :purge => 'true'),
+:data => {:confirm => "Purge this workspace permanently?"}%></li>
+<% end %>
+<% end %>
+</div>
+<br/>
+
+<div id='section'><h2>Account Stats:</h2>
+<li># Workspaces: <%= @workspaces.count%></li>
+<li># Pages: <%= @pages.count%></li>
+<li># Files: <%= @files.count%></li>
+<li># Comments: <%= @comments.count%></li>
+<li># Tasks: <%= @tasks.count%></li>
+</div>

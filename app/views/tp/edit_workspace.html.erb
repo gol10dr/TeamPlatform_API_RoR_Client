@@ -1,0 +1,8 @@
+<div id='section'><h2>Edit Workspace</h2>
+<%= form_tag({:controller => :tp, :action => :update_workspace}, :method => "post")  do %>
+    <%= text_field_tag  :title, params[:title], :placeholder => 'Workspace name' %>
+	<%= text_field_tag  :description, params[:description], :placeholder => 'Description' %>
+	<%= hidden_field_tag :id, params[:id] %>
+    <%= submit_tag "Update Workspace" %>
+<% end %>
+</div>

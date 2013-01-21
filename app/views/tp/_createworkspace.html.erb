@@ -1,0 +1,10 @@
+<%= form_tag({:controller => :tp, :action => :create_workspace}, :method => "post")  do %>
+
+  <div class="field">
+    <%= text_field_tag  :title, params[:title], :placeholder => 'Workspace name' %>
+	<%= text_field_tag  :description, params[:description], :placeholder => 'Description' %>
+  </div>
+  <div class="actions">
+    <%= submit_tag "Create Workspace" %>
+  </div>
+<% end %>
