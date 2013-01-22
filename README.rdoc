@@ -6,7 +6,7 @@ the TeamPlatform service using common CRUD methods (Create, Read, Update and
 Destroy).
 
 == Requirements
-------------
+--------
 
 - Ruby 1.9.3-P374
 - Rails 3.2.11
@@ -18,10 +18,18 @@ Destroy).
 - TeamPlatform client secret
 
 == Getting Started
-------------
+--------
 
 - Download source
 - replace client id in tp_controller.rb with your client id
+replace line 4:
+       CLIENT_ID = TP_CONFIG['client_id']
+with:
+       CLIENT_ID = 'your_client_id'
 - replace client secret in tp_controller.rb with your client secret
+replace line 5:
+       CLIENT_SECRET = TP_CONFIG['client_secret']
+with:
+       CLIENT_SECRET = 'your_client_secret'
        
        
