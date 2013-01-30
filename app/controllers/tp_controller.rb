@@ -37,6 +37,12 @@ OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
     redirect_to tp_index_url 
   end
   
+  # Log user out
+  def logout
+    session[:access_token] = nil
+    redirect_to tp_welcome_url
+  end
+  
   # Fetch url and parse JSON response
   def get_collection(path)
     uri = URI.parse(path)
@@ -82,7 +88,7 @@ OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
     path = 'https://teamplatform.com/api/v1/workspaces?access_token='+ session[:access_token]
     data = {'title' => params[:title], 'description' => params[:description]}
     post = post_collection('create',path, data)
-    redirect_to root_path
+    redirect_to tp_index_path
   end
   
   # Delete workspace
@@ -93,7 +99,7 @@ OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
       path = "https://teamplatform.com/api/v1/workspaces/#{params[:id]}?access_token="+ session[:access_token] + '&purge=true'
     end
     post = post_collection('delete', path, '') 
-    redirect_to root_path
+    redirect_to tp_index_path
   end
   
   # Update workspace
@@ -101,7 +107,7 @@ OpenSSL::SSL::VERIFY_PEER = OpenSSL::SSL::VERIFY_NONE
     path = "https://teamplatform.com/api/v1/workspaces/#{params[:id]}?access_token="+ session[:access_token]
     data = {'title' => params[:title], 'description' => params[:description], 'status' => 'active'}
     post = post_collection('update', path, data)
-    redirect_to root_path
+    redirect_to tp_index_path
   end
 
 end

@@ -1,8 +1,10 @@
 Teamplatform::Application.routes.draw do
   get 'tp/index'
-  root :to => 'tp#index'
+  get 'tp/welcome'
+  root :to => 'tp#welcome'
   match 'callback' => 'tp#callback'
   match 'authorize' => 'tp#authorize'
+  match 'logout' => 'tp#logout'
   match 'create_workspace' => 'tp#create_workspace'
   match 'delete_workspace' => 'tp#delete_workspace'
   match 'update_workspace' => 'tp#update_workspace'
